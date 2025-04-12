@@ -1,10 +1,9 @@
 package com.markdev.springboot_loans_api.dto;
 
-import com.markdev.springboot_loans_api.collection.Person;
 
 public class LoanDtoResponse {
     private String id;
-    private Person person;
+    private String personId;
     private Integer amount;
     private String status;
     private Integer interestRate;
@@ -12,9 +11,9 @@ public class LoanDtoResponse {
 
     public LoanDtoResponse() {
     }
-    public LoanDtoResponse(String id, Person person, Integer amount, String status, Integer interestRate, String createdAt) {
+    public LoanDtoResponse(String id, String personId, Integer amount, String status, Integer interestRate, String createdAt) {
         this.id = id;
-        this.person = person;
+        this.personId = personId;
         this.amount = amount;
         this.status = status;
         this.interestRate = interestRate;
@@ -27,11 +26,11 @@ public class LoanDtoResponse {
     public void setId(String id) {
         this.id = id;
     }
-    public Person getPerson() {
-        return person;
+    public String getPersonId() {
+        return personId;
     }
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
     public Integer getAmount() {
         return amount;
@@ -62,7 +61,7 @@ public class LoanDtoResponse {
     public String toString() {
         return "LoanDtoResponse{" +
                 "id='" + id + '\'' +
-                ", person=" + person +
+                ", personId=" + personId +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
                 ", interestRate=" + interestRate +

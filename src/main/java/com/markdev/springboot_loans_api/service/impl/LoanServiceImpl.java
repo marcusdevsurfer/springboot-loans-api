@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class LoanServiceImpl implements LoanService {
@@ -42,7 +43,7 @@ public class LoanServiceImpl implements LoanService {
         Loan loan = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
         Person person = personRepository.findById(loan.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found"));
         LoanDtoResponse loanDtoResponse = modelMapper.map(loan, LoanDtoResponse.class);
-        loanDtoResponse.setPerson(person);
+        loanDtoResponse.setPersonId(person.getId());
         return loanDtoResponse;
     }
 
@@ -51,5 +52,12 @@ public class LoanServiceImpl implements LoanService {
         Loan loan = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
         loanRepository.delete(loan);
         return "Loan deleted successfully";
+    }
+
+    @Override
+    public List<LoanDtoResponse> getLoans() {
+        return loanRepository.findAll().stream()
+                .map(loan -> modelMapper.map(loan, LoanDtoResponse.class))
+                .toList();
     }
 }
