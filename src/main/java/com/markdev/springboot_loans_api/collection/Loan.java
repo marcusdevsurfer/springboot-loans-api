@@ -3,7 +3,6 @@ package com.markdev.springboot_loans_api.collection;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Document(collection = "Loans")
@@ -15,6 +14,9 @@ public class Loan {
     private String status;
     private Integer interestRate;
     private LocalDateTime createdAt;
+
+    public Loan() {
+    }
 
     public Loan(String id, String personId, Integer amount, String status, Integer interestRate, LocalDateTime createdAt) {
         this.id = id;
@@ -61,6 +63,19 @@ public class Loan {
     }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "id='" + id + '\'' +
+                ", personId='" + personId + '\'' +
+                ", amount=" + amount +
+                ", status='" + status + '\'' +
+                ", interestRate=" + interestRate +
+                ", createdAt=" + createdAt +
+                '}';
     }
 
 }
