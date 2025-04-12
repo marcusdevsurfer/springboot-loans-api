@@ -14,12 +14,17 @@ public class LoanController {
     private LoanService loanService;
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<?> getLoanById(@PathVariable String id){
+    public ResponseEntity<?> getLoanById(@PathVariable String id) {
         return new ResponseEntity<>(loanService.getLoanById(id), HttpStatus.OK);
     }
 
-     @PostMapping("/create")
-     public String createLoan(@RequestBody LoanDto loanDto) {
-          return loanService.createLoan(loanDto);
-     }
+    @PostMapping("/create")
+    public String createLoan(@RequestBody LoanDto loanDto) {
+        return loanService.createLoan(loanDto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteLoanById(@PathVariable String id) {
+        return new ResponseEntity<>(loanService.deleteLoanById(id), HttpStatus.OK);
+    }
 }

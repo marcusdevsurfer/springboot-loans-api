@@ -18,12 +18,16 @@ public class LoanServiceImpl implements LoanService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private LoanRepository loanRepository ;
+    private LoanRepository loanRepository;
     @Autowired
     private PersonRepository personRepository;
 
     @Override
     public String createLoan(LoanDto loanDto) {
+        if(loanDto.getPersonId().isEmpty()) {
+            throw new RuntimeException("Person ID cannot be empty");
+        }
+        personRepository.findById(loanDto.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found"));
         Loan loan = modelMapper.map(loanDto, Loan.class);
         LocalDateTime createdAt = LocalDateTime.now();
         loan.setId(null);
@@ -40,5 +44,12 @@ public class LoanServiceImpl implements LoanService {
         LoanDtoResponse loanDtoResponse = modelMapper.map(loan, LoanDtoResponse.class);
         loanDtoResponse.setPerson(person);
         return loanDtoResponse;
+    }
+
+    @Override
+    public String deleteLoanById(String id) {
+        Loan loan = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
+        loanRepository.delete(loan);
+        return "Loan deleted successfully";
     }
 }
