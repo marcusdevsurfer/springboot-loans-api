@@ -10,6 +10,12 @@ public class Person {
     String id;
     String name;
 
+    public Person() {
+    }
+    public Person(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     public void setId(String id) {
         this.id = id;
     }
@@ -22,4 +28,13 @@ public class Person {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }
