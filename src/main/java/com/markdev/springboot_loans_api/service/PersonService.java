@@ -1,21 +1,11 @@
 package com.markdev.springboot_loans_api.service;
 
 import com.markdev.springboot_loans_api.collection.Person;
-import com.markdev.springboot_loans_api.repository.PersonRepository;
-import org.springframework.stereotype.Service;
 
-@Service
-public class PersonService {
+import java.util.List;
 
-    private final PersonRepository personRepository;
+public interface PersonService {
+    String save(Person person);
 
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
-
-    public String save(Person person) {
-        return personRepository.save(person).getId();
-    }
-
-
+    List<Person> getAll();
 }
