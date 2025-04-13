@@ -3,6 +3,7 @@ package com.markdev.springboot_loans_api.service.impl;
 import com.markdev.springboot_loans_api.collection.Loan;
 import com.markdev.springboot_loans_api.dto.LoanDto;
 import com.markdev.springboot_loans_api.dto.LoanDtoResponse;
+import com.markdev.springboot_loans_api.exceptions.IlegalArgumentException;
 import com.markdev.springboot_loans_api.exceptions.ResourceNotFoundException;
 import com.markdev.springboot_loans_api.repository.LoanRepository;
 import com.markdev.springboot_loans_api.repository.PersonRepository;
@@ -25,10 +26,10 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public String createLoan(LoanDto loanDto) {
-        if (loanDto.getPersonId().isEmpty()) {
-            throw new RuntimeException("Person ID cannot be empty");
+        if (loanDto.getPersonId() == null) {
+            throw new IlegalArgumentException("Person ID cannot be null");
         }
-        personRepository.findById(loanDto.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found"));
+        personRepository.findById(loanDto.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
         Loan loan = modelMapper.map(loanDto, Loan.class);
         LocalDateTime createdAt = LocalDateTime.now();
         loan.setId(null);
