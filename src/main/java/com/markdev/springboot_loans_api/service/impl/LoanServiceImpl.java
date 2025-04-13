@@ -1,9 +1,9 @@
 package com.markdev.springboot_loans_api.service.impl;
 
 import com.markdev.springboot_loans_api.collection.Loan;
-import com.markdev.springboot_loans_api.collection.Person;
 import com.markdev.springboot_loans_api.dto.LoanDto;
 import com.markdev.springboot_loans_api.dto.LoanDtoResponse;
+import com.markdev.springboot_loans_api.exceptions.ResourceNotFoundException;
 import com.markdev.springboot_loans_api.repository.LoanRepository;
 import com.markdev.springboot_loans_api.repository.PersonRepository;
 import com.markdev.springboot_loans_api.service.LoanService;
@@ -25,7 +25,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public String createLoan(LoanDto loanDto) {
-        if(loanDto.getPersonId().isEmpty()) {
+        if (loanDto.getPersonId().isEmpty()) {
             throw new RuntimeException("Person ID cannot be empty");
         }
         personRepository.findById(loanDto.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found"));
@@ -40,11 +40,8 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public LoanDtoResponse getLoanById(String id) {
-        Loan loan = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
-        Person person = personRepository.findById(loan.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found"));
-        LoanDtoResponse loanDtoResponse = modelMapper.map(loan, LoanDtoResponse.class);
-        loanDtoResponse.setPersonId(person.getId());
-        return loanDtoResponse;
+        Loan loan = loanRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
+        return modelMapper.map(loan, LoanDtoResponse.class);
     }
 
     @Override
