@@ -9,6 +9,7 @@ A Spring Boot-based REST API for managing loans and persons. The API allows user
 - **Person Association**: Associate loans with persons using their IDs.
 - **Model Mapping**: Uses ModelMapper for DTO-to-entity and entity-to-DTO conversions.
 - **Error Handling**: Custom exception handling for missing loans or persons.
+- **API Documentation**: Integrated Swagger UI for API documentation and testing.
 
 ## Technologies Used
 - **Java**: Core programming language.
@@ -17,8 +18,10 @@ A Spring Boot-based REST API for managing loans and persons. The API allows user
 - **ModelMapper**: For object mapping between DTOs and entities.
 - **Lombok**: To reduce boilerplate code (e.g., getters, setters).
 - **MongoDB**: NoSQL database for storing loan and person data.
+- **Swagger**: For API documentation and testing.
 
 ## Endpoints
+
 ### Loan Endpoints
 - **GET /api/v1/loans/get/{id}**: Retrieve a loan by its ID.
 - **POST /api/v1/loans/create**: Create a new loan.
@@ -29,12 +32,8 @@ A Spring Boot-based REST API for managing loans and persons. The API allows user
 - **POST /api/v1/persons/create**: Create a new person.
 - **DELETE /api/v1/persons/delete/{id}**: Delete a person by their ID.
 
-## Project Structure
-- **Controller**: Handles HTTP requests and responses.
-- **Service**: Contains business logic for loan and person operations.
-- **Repository**: Interfaces for database access.
-- **DTOs**: Data Transfer Objects for request and response payloads.
-- **Collections**: Represent database collections.
+## API Documentation
+This project includes API documentation generated using **Swagger**. The documentation provides details about all available endpoints, request/response structures, and example payloads.
 
 ## How to Run
 1. Clone the repository.
