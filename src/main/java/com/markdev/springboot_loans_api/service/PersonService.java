@@ -9,5 +9,7 @@ public interface PersonService {
 
     List<Person> getAll();
 
+    Person getById(String id);
+
     String deletePerson(String id);
 }

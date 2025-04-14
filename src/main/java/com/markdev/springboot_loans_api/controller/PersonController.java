@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/persons")
 public class PersonController {
@@ -23,6 +25,10 @@ public class PersonController {
         return personService.getAll();
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getPersonById(@PathVariable String id) {
+        return new ResponseEntity<>(personService.getById(id), HttpStatus.OK);
+    }
     @PostMapping("/create")
     public String savePerson(@RequestBody Person person) {
         return personService.save(person);

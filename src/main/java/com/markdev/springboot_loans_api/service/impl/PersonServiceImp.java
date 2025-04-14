@@ -32,6 +32,12 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
+    public Person getById(String id) {
+        return personRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Person not found with ID: " + id));
+    }
+
+    @Override
     public String deletePerson(String id) {
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("ID cannot be null or empty");
