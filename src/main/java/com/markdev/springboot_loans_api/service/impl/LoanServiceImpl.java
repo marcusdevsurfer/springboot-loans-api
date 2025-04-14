@@ -3,7 +3,7 @@ package com.markdev.springboot_loans_api.service.impl;
 import com.markdev.springboot_loans_api.collection.Loan;
 import com.markdev.springboot_loans_api.dto.LoanDto;
 import com.markdev.springboot_loans_api.dto.LoanDtoResponse;
-import com.markdev.springboot_loans_api.exceptions.IlegalArgumentException;
+import com.markdev.springboot_loans_api.exceptions.IllegalArgumentException;
 import com.markdev.springboot_loans_api.exceptions.ResourceNotFoundException;
 import com.markdev.springboot_loans_api.repository.LoanRepository;
 import com.markdev.springboot_loans_api.repository.PersonRepository;
@@ -27,7 +27,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public String createLoan(LoanDto loanDto) {
         if (loanDto.getPersonId() == null) {
-            throw new IlegalArgumentException("Person ID cannot be null");
+            throw new IllegalArgumentException("Person ID cannot be null");
         }
         personRepository.findById(loanDto.getPersonId()).orElseThrow(() -> new ResourceNotFoundException("Person not found"));
         Loan loan = modelMapper.map(loanDto, Loan.class);
@@ -47,7 +47,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public String deleteLoanById(String id) {
-        Loan loan = loanRepository.findById(id).orElseThrow(() -> new RuntimeException("Loan not found"));
+        Loan loan = loanRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
         loanRepository.delete(loan);
         return "Loan deleted successfully";
     }

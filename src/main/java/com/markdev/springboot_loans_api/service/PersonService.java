@@ -8,4 +8,6 @@ public interface PersonService {
     String save(Person person);
 
     List<Person> getAll();
+
+    String deletePerson(String id);
 }
