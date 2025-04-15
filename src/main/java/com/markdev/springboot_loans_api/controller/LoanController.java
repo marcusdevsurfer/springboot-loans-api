@@ -2,6 +2,7 @@ package com.markdev.springboot_loans_api.controller;
 
 import com.markdev.springboot_loans_api.dto.LoanDto;
 import com.markdev.springboot_loans_api.service.LoanService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,8 @@ public class LoanController {
     }
 
     @PostMapping("/create")
-    public String createLoan(@RequestBody LoanDto loanDto) {
-        return loanService.createLoan(loanDto);
+    public ResponseEntity<?> createLoan(@RequestBody LoanDto loanDto) {
+        return new ResponseEntity<>(loanService.createLoan(loanDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
